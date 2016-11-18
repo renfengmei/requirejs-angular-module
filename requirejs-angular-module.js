@@ -31,14 +31,14 @@ define(["app"], function(app) {
 
                 var cache = {};
 
-                return function Library(module) {
+                return function Library(moduleName) {
 
                     // already activated
-                    if (cache[module]) {
+                    if (cache[moduleName]) {
                         return;
                     }
 
-                    var module = angular.module(module);
+                    var module = angular.module(moduleName);
 
                     var i;
 
@@ -65,7 +65,7 @@ define(["app"], function(app) {
                         $injector.invoke(module._runBlocks[i]);
                     }
 
-                    cache[module] = true;
+                    cache[moduleName] = true;
                 };
             })();
 
