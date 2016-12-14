@@ -54,15 +54,27 @@ define(["app"], function(app) {
                         provider = providers[invokeArgs[0]];
                         method = invokeArgs[1];
                         args = invokeArgs[2];
-                        provider[method].apply(provider, args);
+                        try {
+                            provider[method].apply(provider, args);
+                        } catch(e) {
+                            console.error(e);
+                        }
                     }
 
                     for (i = 0; i < module._configBlocks.length; i++) {
-                        $injector.invoke(module._configBlocks[i]);
+                        try {
+                            $injector.invoke.apply($injector, module._configBlocks[i][2]);
+                        } catch(e) {
+                            console.error(e);
+                        }
                     }
 
                     for (i = 0; i < module._runBlocks.length; i++) {
-                        $injector.invoke(module._runBlocks[i]);
+                        try {
+                            $injector.invoke(module._runBlocks[i]);
+                        } catch (e) {
+                            console.error(e);
+                        }
                     }
 
                     cache[moduleName] = true;
