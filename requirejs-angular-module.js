@@ -41,6 +41,7 @@ define(["app"], function(app) {
                     var module = angular.module(moduleName);
 
                     var i;
+                    var $injector = angular.element(document).injector();
 
                     if (module.requires) {
                         for (i = 0; i < module.requires.length; i++) {
